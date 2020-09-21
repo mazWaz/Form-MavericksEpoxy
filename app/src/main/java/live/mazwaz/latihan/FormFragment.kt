@@ -12,17 +12,17 @@ import live.mazwaz.latihan.base.MvRxEpoxyController
 import live.mazwaz.latihan.base.buildController
 import live.mazwaz.latihan.databinding.FragmentFormBinding
 import live.mazwaz.latihan.item.*
+import live.mazwaz.latihan.model.GenderList
 import live.mazwaz.latihan.viewmodel.FormViewModel
 
 class FormFragment : BaseEpoxyFragment<FragmentFormBinding>() {
     private val viewModel: FormViewModel by activityViewModel()
+    private val genderList: ArrayList<GenderList> = ArrayList()
     override var fragmentLayout: Int = R.layout.fragment_form
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        genderList.add(GenderList("1", "Male"))
+        genderList.add(GenderList("2", "Female"))
     }
 
     override fun epoxyController(): MvRxEpoxyController = buildController {
@@ -53,6 +53,19 @@ class FormFragment : BaseEpoxyFragment<FragmentFormBinding>() {
                 onError("")
                 image(0)
                 textChangeCallback { viewModel.setName(it) }
+            }
+            label {
+                id("LabelGender")
+                text("Gender")
+            }
+            spinner {
+                id("SpinnerLayout")
+                adapterpinner(genderList.toArray())
+                onSelectItem {
+                    val result: GenderList = it as GenderList
+                    viewModel.setGenderId(result.idgen.toString())
+                    viewModel.setGender(it.toString())
+                }
             }
             label {
                 id("LabelNik")

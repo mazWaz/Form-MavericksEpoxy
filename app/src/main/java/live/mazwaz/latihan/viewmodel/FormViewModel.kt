@@ -20,6 +20,8 @@ class FormViewModel(
     fun setSearch(value: String) = setState { copy(search = value) }
     fun setName(value: String) = setState { copy(name = value) }
     fun setNik(value: String) = setState { copy(nik = value) }
+    fun setGender(value: String) = setState { copy(gender = value) }
+    fun setGenderId(value: String) = setState { copy(genderId = value) }
     fun setPosition(value: String) = setState { copy(position = value) }
     fun setFactory(value: String) = setState { copy(factory = value) }
     fun setEmail(value: String) = setState { copy(email = value) }
